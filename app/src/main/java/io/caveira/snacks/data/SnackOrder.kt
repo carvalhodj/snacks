@@ -9,5 +9,5 @@ data class SnackOrder(
     val store: String,
     val value: Int,
     val date: String,
-    val paymentModel: String
+    val paymentModel: String,
 )

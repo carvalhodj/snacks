@@ -28,14 +28,14 @@ fun SnackOrderScreen(viewModel: SnackViewModel) {
     var text by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
     ) {
         Row {
             OutlinedTextField(
                 value = text,
                 onValueChange = { text = it },
                 placeholder = { Text("Enter a text") },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
             Button(
                 shape = RoundedCornerShape(5.dp),
@@ -44,12 +44,14 @@ fun SnackOrderScreen(viewModel: SnackViewModel) {
                     if (text.isNotBlank()) {
                         val elements = text.split(",")
                         viewModel.saveSnackOrder(
-                            elements[0], elements[1].toInt(), LocalDateTime.parse(elements[2]),
-                            PaymentModel.valueOf(elements[3])
+                            elements[0],
+                            elements[1].toInt(),
+                            LocalDateTime.parse(elements[2]),
+                            PaymentModel.valueOf(elements[3]),
                         )
                         text = ""
                     }
-                }
+                },
             ) {
                 Text("Save")
             }
@@ -59,7 +61,7 @@ fun SnackOrderScreen(viewModel: SnackViewModel) {
             items(snackOrders) { snackOrder ->
                 SnackOrderItem(
                     snackOrder = snackOrder,
-                    onDelete = { viewModel.deleteSnackOrder(snackOrder) }
+                    onDelete = { viewModel.deleteSnackOrder(snackOrder) },
                 )
             }
         }

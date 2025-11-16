@@ -14,11 +14,12 @@ import io.caveira.snacks.viewmodel.SnackViewModelFactory
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val db = Room.databaseBuilder(
-            context = applicationContext,
-            klass = SnackDatabase::class.java,
-            name = "snack_db"
-        ).build()
+        val db =
+            Room.databaseBuilder(
+                context = applicationContext,
+                klass = SnackDatabase::class.java,
+                name = "snack_db",
+            ).build()
 
         val repository = SnackRepository(db.snackOrderDao())
         val factory = SnackViewModelFactory(repository)

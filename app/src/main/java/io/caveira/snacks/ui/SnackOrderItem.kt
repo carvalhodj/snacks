@@ -19,18 +19,22 @@ import androidx.compose.ui.unit.dp
 import io.caveira.snacks.data.SnackOrder
 
 @Composable
-fun SnackOrderItem(snackOrder: SnackOrder, onDelete: (SnackOrder) -> Unit) {
+fun SnackOrderItem(
+    snackOrder: SnackOrder,
+    onDelete: (SnackOrder) -> Unit,
+) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
-        colors = CardDefaults.cardColors(contentColor = Color.Gray)
+        colors = CardDefaults.cardColors(contentColor = Color.Gray),
     ) {
         Row(
             modifier = Modifier.padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val date = snackOrder.date.split("T")[0].split("-")
@@ -39,7 +43,7 @@ fun SnackOrderItem(snackOrder: SnackOrder, onDelete: (SnackOrder) -> Unit) {
                 Text(text = "${date[2]}/${date[1]}/${date[0]}", modifier = Modifier.weight(1f))
                 Text(text = snackOrder.paymentModel, modifier = Modifier.weight(1f))
                 IconButton(
-                    onClick = { (onDelete(snackOrder)) }
+                    onClick = { (onDelete(snackOrder)) },
                 ) {
                     Icon(Icons.Default.Delete, contentDescription = "Delete")
                 }

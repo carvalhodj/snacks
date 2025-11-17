@@ -1,5 +1,7 @@
 name: Kotlin CI
 
+run-name: Build and Test
+
 on:
   push:
     branches: [ main, develop ]
@@ -8,7 +10,6 @@ on:
 
 jobs:
   build:
-    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:

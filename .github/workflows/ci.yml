@@ -1,4 +1,4 @@
-name: ${GITHUB_REPOSITORY#*/} CI
+name: Snack CI
 
 run-name: Build and Test
 

@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.caveira.snacks.data.SnackOrder
 
@@ -28,25 +27,26 @@ fun SnackOrderItem(
             Modifier
                 .fillMaxWidth()
                 .padding(vertical = 4.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
-        colors = CardDefaults.cardColors(contentColor = Color.Gray),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
         Row(
-            modifier = Modifier.padding(12.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                val date = snackOrder.date.split("T")[0].split("-")
-                Text(text = snackOrder.store, modifier = Modifier.weight(1f))
-                Text(text = snackOrder.value.toString(), modifier = Modifier.weight(1f))
-                Text(text = "${date[2]}/${date[1]}/${date[0]}", modifier = Modifier.weight(1f))
-                Text(text = snackOrder.paymentModel, modifier = Modifier.weight(1f))
-                IconButton(
-                    onClick = { (onDelete(snackOrder)) },
-                ) {
-                    Icon(Icons.Default.Delete, contentDescription = "Delete")
-                }
+            val date = snackOrder.date.split("T")[0].split("-")
+            Text(text = snackOrder.store, modifier = Modifier.weight(1.5f))
+            Text(
+                text = "R$ %.2f".format(snackOrder.value / 100.0),
+                modifier = Modifier.weight(1f),
+            )
+            Text(text = "${date[2]}/${date[1]}/${date[0].takeLast(2)}", modifier = Modifier.weight(1f))
+            Text(text = snackOrder.paymentModel, modifier = Modifier.weight(1f))
+            IconButton(onClick = { onDelete(snackOrder) }) {
+                Icon(Icons.Default.Delete, contentDescription = "Delete")
             }
         }
     }

@@ -18,16 +18,21 @@ class SnackViewModel(private val repository: SnackRepository) : ViewModel() {
             it.sortedByDescending { snackOrder -> snackOrder.id }
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val totalPrice: StateFlow<Double> =
+        repository.allSnackOrders
+            .map { orders -> orders.sumOf { it.value } / 100.0 }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0.0)
+
     fun saveSnackOrder(
         store: String,
-        value: Int,
+        value: Double,
         date: LocalDateTime,
         paymentModel: PaymentModel,
     ) = viewModelScope.launch {
         repository.saveSnackOrder(
             SnackOrder(
                 store = store,
-                value = value,
+                value = (value * 100).toInt(),
                 date = date.toString(),
                 paymentModel = paymentModel.toString(),
             ),
